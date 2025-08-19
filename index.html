@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library Management System</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+  margin: 0;
+  font-family: 'Georgia', serif;
+  color: #eae7dc;
+  background: url("Lmsbg.jpg") no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding-top: 50px;
+  background-attachment: fixed;
+}
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  padding: 12px;
+  z-index: 1000;
+}
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+nav ul li {
+  margin: 0 15px;
+}
+nav ul li a {
+  color: #f4d03f;
+  text-decoration: none;
+  font-weight: bold;
+}
+nav ul li a:hover {
+  color: #fff;
+}
+section {
+  display: none;
+  padding: 20px;
+  background: rgba(0,0,0,0.6);
+  border-radius: 10px;
+  margin: 20px auto;
+  max-width: 900px;
+}
+section.active {
+  display: block;
+}
+h1.welcome {
+  color: #f4d03f;
+  text-align: center;
+}
+h2, h3 {
+  color: #f5f5dc;
+}
+p.quote {
+  color: #dcd0c0;
+  text-align: center;
+  font-style: italic;
+}
+form {
+  margin-bottom: 15px;
+}
+input, select, button {
+  padding: 8px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+}
+button {
+  background: #8b0000;
+  color: #fff;
+  cursor: pointer;
+}
+button:hover {
+  background: #a93226;
+}
+#memberList li {
+  margin: 10px 0;
+  padding: 10px;
+  background: rgba(0,0,0,0.6);
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; 
+}
+#memberList li div {
+  display: flex;
+  flex-direction: column; 
+  gap: 6px; 
+}
+#memberList button {
+  margin: 0;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+}
+#memberList button:first-child {
+  background-color: #007bff; 
+}
+#memberList button:last-child {
+  background-color: #dc3545; 
+}
+ul {
+  list-style: none;
+  padding: 0;
+}
+ul li {
+  margin: 5px 0;
+  background: rgba(255,255,255,0.1);
+  padding: 8px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+footer {
+  background: #2c2c2c;
+  color: #f5f5dc;
+  text-align: center;
+  padding: 10px;
+  margin-top: auto;
+}
+/* Responsive */
+@media (max-width: 768px) {
+  body{
+    padding-top: 150px;
+  }
+  nav ul {
+    flex-direction: column;
+  }
+  section {
+    margin: 10px;
+    padding: 15px;
+  }
+}
+/* Mobile*/
+@media (max-width: 480px) {
+  body {
+    padding-top: 70px; 
+  }
+  nav {
+    flex-direction: column;
+    padding: 8px;
+  }
+  nav ul {
+    flex-direction: column;
+    width: 100%;
+  }
+  nav ul li {
+    margin: 5px 0;
+  }
+  nav ul li a {
+    font-size: 14px;
+  }
+  h1.welcome {
+    font-size: 1.5rem;
+  }
+  h2, h3 {
+    font-size: 1.2rem;
+  }
+  section {
+    padding: 12px;
+    font-size: 14px;
+  }
+  #memberList li {
+    padding: 8px;
+  }
+  button {
+    font-size: 14px;
+    padding: 6px;
+  }
+}
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="#" data-section="home">Home</a></li>
+        <li><a href="#" data-section="books">Books</a></li>
+        <li><a href="#" data-section="members">Members</a></li>
+        <li><a href="#" data-section="issue-return">Issue & Return</a></li>
+        <li><a href="#" data-section="reports">Reports</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <!-- Home Section -->
+    <section id="home" class="active">
+      <h1 class="welcome">Welcome to Your Digital Library</h1>
+      <p class="quote">“Bringing order to your world of books.”</p>
+    </section>
+    <!-- Books Section -->
+    <section id="books">
+      <h2>📚 Book Management</h2>
+      <input type="text" id="searchBook" placeholder="Search by title, author, genre or availability">
+      <form id="bookForm">
+        <input type="text" id="bookTitle" placeholder="Book Title" required>
+        <input type="text" id="bookAuthor" placeholder="Author" required>
+        <input type="text" id="bookGenre" placeholder="Genre" required>
+        <button type="submit">Add Book</button>
+      </form>
+      <ul id="bookList"></ul>
+    </section>
+    <!-- Members Section -->
+    <section id="members">
+      <h2>👥 Member Management</h2>
+      <form id="memberForm">
+        <input type="text" id="memberName" placeholder="Member Name" required>
+        <input type="text" id="memberId" placeholder="Enter Member ID" required>
+        <input type="email" id="memberEmail" placeholder="Enter Member Email" required>
+        <button type="submit">Add Member</button>
+      </form>
+      <input type="text" id="memberSearch" placeholder="Search members by name,id,email...">
+      <ul id="memberList"></ul>
+    </section>
+    <!-- Issue & Return Section -->
+    <section id="issue-return">
+    <h2>🔄 Issue & Return</h2>
+    <form id="issueForm">
+      <label for="issueMember">Select Member:</label>
+      <select id="issueMember" required></select>
+      <label for="issueBook">Select Book:</label>
+      <select id="issueBook" required></select>
+      <button type="submit" class="btn-issue">Issue Book</button>
+    </form>
+    <h3> Issued Books</h3>
+    <ul id="issuedList"></ul>
+  </section>
+    <!-- Reports Section -->
+    <section id="reports">
+      <h2>📊 Reports</h2>
+      <p>Total Books: <span id="totalBooks">0</span></p>
+      <p>Total Members: <span id="totalMembers">0</span></p>
+      <p>Books Issued: <span id="issuedBooks">0</span></p>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2025 Digital Library Management System</p>
+  </footer>
+  <script>
+    //Navigation Toggle
+document.querySelectorAll("nav a").forEach(link => {
+  link.addEventListener("click", (e) => {
+    e.preventDefault();
+    document.querySelectorAll("main section").forEach(sec => sec.classList.remove("active"));
+    const target = e.target.getAttribute("data-section");
+    document.getElementById(target).classList.add("active");
+  });
+});
+//Book Management
+let books = JSON.parse(localStorage.getItem("books")) || [];
+let editBookIndex = -1;
+document.getElementById("bookForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  const title = document.getElementById("bookTitle").value;
+  const author = document.getElementById("bookAuthor").value;
+  const genre = document.getElementById("bookGenre").value;
+
+  if (editBookIndex === -1) {
+    books.push({ title, author, genre, available: true });
+  } else {
+    books[editBookIndex] = { ...books[editBookIndex], title, author, genre };
+    editBookIndex = -1;
+  }
+
+  localStorage.setItem("books", JSON.stringify(books));
+  renderBooks();
+  this.reset();
+  updateReports();
+});
+
+function renderBooks(filter = "") {
+  const bookList = document.getElementById("bookList");
+  bookList.innerHTML = "";
+
+  const filtered = books.filter(b =>
+    b.title.toLowerCase().includes(filter.toLowerCase()) ||
+    b.author.toLowerCase().includes(filter.toLowerCase()) ||
+    b.genre.toLowerCase().includes(filter.toLowerCase()) ||
+    (b.available ? "available" : "issued").includes(filter.toLowerCase())
+  );
+
+  filtered.forEach((b, index) => {
+    const li = document.createElement("li");
+    li.textContent = `${b.title} by ${b.author} [Genre: ${b.genre}] - ${b.available ? "Available" : "Issued"}`;
+    const btnContainer = document.createElement("div");
+    // Edit
+    const editBtn = document.createElement("button");
+    editBtn.textContent = "Edit";
+    editBtn.onclick = () => {
+      document.getElementById("bookTitle").value = b.title;
+      document.getElementById("bookAuthor").value = b.author;
+      document.getElementById("bookGenre").value = b.genre;
+      editBookIndex = index;
+    };
+    // Delete
+    const delBtn = document.createElement("button");
+    delBtn.textContent = "Delete";
+    delBtn.onclick = () => {
+      books.splice(index, 1);
+      localStorage.setItem("books", JSON.stringify(books));
+      renderBooks(filter);
+      updateReports();
+    };
+    btnContainer.appendChild(editBtn);
+    btnContainer.appendChild(delBtn);
+    li.appendChild(btnContainer);
+    bookList.appendChild(li);
+  });
+}
+
+document.getElementById("searchBook").addEventListener("input", function(e) {
+  renderBooks(e.target.value);
+});
+renderBooks();
+
+// Member Management
+const memberForm = document.getElementById("memberForm");
+const memberList = document.getElementById("memberList");
+const memberSearch = document.getElementById("memberSearch");
+let members = JSON.parse(localStorage.getItem("members")) || [];
+let editIndex = null; 
+
+// Render members 
+function renderMembers(filter = "") {
+  memberList.innerHTML = "";
+  const filtered = members.filter(m =>
+    m.name.toLowerCase().includes(filter.toLowerCase()) ||
+    m.email.toLowerCase().includes(filter.toLowerCase()) ||
+    m.id.toLowerCase().includes(filter.toLowerCase())
+  );
+
+  filtered.forEach((m, index) => {
+    const li = document.createElement("li");
+    li.textContent = `${m.name} (ID: ${m.id}, Email: ${m.email}) `;
+
+  // Button container
+  const btnContainer = document.createElement("div");
+  const editBtn = document.createElement("button");
+  editBtn.textContent = "Edit";
+  editBtn.onclick = () => {
+    document.getElementById("memberName").value = m.name;
+    document.getElementById("memberId").value = m.id;
+    document.getElementById("memberEmail").value = m.email;
+    editIndex = members.findIndex(mem => mem.id === m.id);
+  };
+    // Delete button
+    const delBtn = document.createElement("button");
+    delBtn.textContent = "Delete";
+    delBtn.onclick = () => {
+    members.splice(index, 1);
+    localStorage.setItem("members", JSON.stringify(members));
+    renderMembers(filter);
+  };
+
+    btnContainer.appendChild(editBtn);
+    btnContainer.appendChild(delBtn);
+
+    li.appendChild(btnContainer);
+    memberList.appendChild(li);
+});
+}
+
+// Add / Update member
+memberForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const name = document.getElementById("memberName").value.trim();
+  const id = document.getElementById("memberId").value.trim();
+  const email = document.getElementById("memberEmail").value.trim();
+
+  if (name && id && email) {
+    if (editIndex !== null) {
+      // Update existing member
+      members[editIndex] = { name, id, email };
+      editIndex = null;
+    } else {
+      // Add new member
+      members.push({ name, id, email });
+    }
+    localStorage.setItem("members", JSON.stringify(members));
+    renderMembers(memberSearch.value);
+    updateReports();
+    memberForm.reset();
+  }
+});
+memberSearch.addEventListener("input", (e) => {
+  renderMembers(e.target.value);
+});
+renderMembers();
+
+//Issue & Return
+let issuedBooks = JSON.parse(localStorage.getItem("issuedBooks")) || [];
+if (!Array.isArray(issuedBooks)) {
+  issuedBooks = [];
+}
+const issueForm = document.getElementById("issueForm");
+const issueMember = document.getElementById("issueMember");
+const issueBook = document.getElementById("issueBook");
+const issuedList = document.getElementById("issuedList");
+
+// dropdowns
+function renderDropdowns() {
+  issueMember.innerHTML = members
+    .map((m, i) => `<option value="${i}">${m.name} (${m.email})</option>`)
+    .join("");
+
+  issueBook.innerHTML = books
+    .map((b, i) => {
+      if (b.available === undefined) b.available = true; // fix missing
+        return b.available
+        ? `<option value="${i}">${b.title} by ${b.author}</option>`
+        : ""
+})
+    .join("");
+}
+
+//Render issued books
+function renderIssuedBooks() {
+  issuedList.innerHTML = issuedBooks
+    .map(
+      (entry, i) => `
+      <li>
+        <strong>${entry.bookTitle}</strong> → ${entry.memberName} 
+        (Issued: ${entry.issueDate})
+        ${
+          entry.returnDate
+            ? `✔ Returned: ${entry.returnDate}`
+            : `<button onclick="returnBook(${i})">Return</button>`
+        }
+      </li>
+    `
+    )
+    .join("");
+}
+
+//Issue Book
+issueForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const memberIndex = issueMember.value;
+  const bookIndex = issueBook.value;
+  console.log("Issuing book:", books[bookIndex]?.title, "to", members[memberIndex]?.name);
+
+
+  if (books[bookIndex] && books[bookIndex].available) {
+    books[bookIndex].available = false;
+
+    issuedBooks.push({
+      bookTitle: books[bookIndex].title,
+      memberName: members[memberIndex].name,
+      issueDate: new Date().toLocaleDateString(),
+      returnDate: null,
+      bookIndex,
+    });
+    saveData();
+    renderDropdowns();
+    renderIssuedBooks();
+    updateReports();
+  }
+});
+
+//Return Book
+function returnBook(i) {
+  const entry = issuedBooks[i];
+  books[entry.bookIndex].available = true;
+  entry.returnDate = new Date().toLocaleDateString();
+  saveData();
+  renderDropdowns();
+  renderIssuedBooks();
+  updateReports();
+}
+
+//Saving Data 
+function saveData() {
+  localStorage.setItem("books", JSON.stringify(books));
+  localStorage.setItem("members", JSON.stringify(members));
+  localStorage.setItem("issuedBooks", JSON.stringify(issuedBooks));
+}
+renderDropdowns();
+renderIssuedBooks();
+updateReports();
+
+//Reports
+function updateReports() {
+  document.getElementById("totalBooks").textContent = books.length;
+  document.getElementById("totalMembers").textContent = members.length;
+  document.getElementById("issuedBooks").textContent = issuedBooks.length;
+}
+renderBooks();
+renderMembers();
+renderDropdowns();
+renderIssuedBooks();
+updateReports();
+  </script>
+</body>
+</html>
