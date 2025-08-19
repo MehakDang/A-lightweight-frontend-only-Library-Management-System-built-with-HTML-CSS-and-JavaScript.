@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library Management System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="#" data-section="home">Home</a></li>
+        <li><a href="#" data-section="books">Books</a></li>
+        <li><a href="#" data-section="members">Members</a></li>
+        <li><a href="#" data-section="issue-return">Issue & Return</a></li>
+        <li><a href="#" data-section="reports">Reports</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <!-- Home Section -->
+    <section id="home" class="active">
+      <h1 class="welcome">Welcome to Your Digital Library</h1>
+      <p class="quote">“Bringing order to your world of books.”</p>
+    </section>
+    <!-- Books Section -->
+    <section id="books">
+      <h2>📚 Book Management</h2>
+      <input type="text" id="searchBook" placeholder="Search by title, author, genre or availability">
+      <form id="bookForm">
+        <input type="text" id="bookTitle" placeholder="Book Title" required>
+        <input type="text" id="bookAuthor" placeholder="Author" required>
+        <input type="text" id="bookGenre" placeholder="Genre" required>
+        <button type="submit">Add Book</button>
+      </form>
+      <ul id="bookList"></ul>
+    </section>
+    <!-- Members Section -->
+    <section id="members">
+      <h2>👥 Member Management</h2>
+      <form id="memberForm">
+        <input type="text" id="memberName" placeholder="Member Name" required>
+        <input type="text" id="memberId" placeholder="Enter Member ID" required>
+        <input type="email" id="memberEmail" placeholder="Enter Member Email" required>
+        <button type="submit">Add Member</button>
+      </form>
+      <input type="text" id="memberSearch" placeholder="Search members by name,id,email...">
+      <ul id="memberList"></ul>
+    </section>
+    <!-- Issue & Return Section -->
+    <section id="issue-return">
+    <h2>🔄 Issue & Return</h2>
+    <form id="issueForm">
+      <label for="issueMember">Select Member:</label>
+      <select id="issueMember" required></select>
+      <label for="issueBook">Select Book:</label>
+      <select id="issueBook" required></select>
+      <button type="submit" class="btn-issue">Issue Book</button>
+    </form>
+    <h3> Issued Books</h3>
+    <ul id="issuedList"></ul>
+  </section>
+    <!-- Reports Section -->
+    <section id="reports">
+      <h2>📊 Reports</h2>
+      <p>Total Books: <span id="totalBooks">0</span></p>
+      <p>Total Members: <span id="totalMembers">0</span></p>
+      <p>Books Issued: <span id="issuedBooks">0</span></p>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2025 Digital Library Management System</p>
+  </footer>
+  
+</body>
+</html>
